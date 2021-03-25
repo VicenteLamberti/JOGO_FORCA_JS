@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body
+        {
+            user-select: none;
+            background-color: rgb(240, 207, 204);
+        }
+
+        #corpoPrincipal
+        {
+            width: 700px;
+            margin: auto;
+            border: solid  2px black ;
+            box-shadow: 5px 5px gray;
+            padding: 10px;
+            font-style: normal;
+            font-family: cursive;
+            background-color: rgb(248, 144, 132);
+        }
+        
+        .letra
+        {
+            width: 2rem;
+            height: 2rem;
+            text-transform: uppercase;
+            text-align: center;
+            margin: 0.5rem;
+            font-size: 25pt;
+            border-left: none;
+            border-top: none;
+            border-right: none;
+        }
+
+        .letraJogador
+        {
+            width: 2rem;
+            height: 2rem;
+            text-transform: uppercase;
+            text-align: center;
+            margin: 0.5rem;
+            font-size: 25pt;
+        }
+
+        .boneco
+        {
+            
+            width: 5rem;
+            height: 5rem;
+            margin: 5px;
+            text-align: center;
+            font-size: 60pt;
+            display: none;
+        }
+
+        #cabeca
+        {
+            margin: auto;
+            top: 11rem;
+            left: 7rem;
+        }
+
+        #bracoesquerdo
+        {
+            position: absolute;
+            top: 13rem;
+            left: 28rem;
+        }
+
+        #bracodireito
+        {
+          
+            position: absolute;
+            left: 33rem;
+            top: 13rem;
+        }
+
+        #pernaesquerda
+        {
+            position: absolute;
+            top: 19.5rem;
+            left: 29rem;
+        }
+
+        #pernadireita
+        {
+            position: absolute;
+            top: 19.5rem;
+            left: 32rem;
+        }
+
+        #corpo
+        {
+            height: 10rem;
+            top: 15rem;
+            margin: auto;
+        }
+
+        #texto
+        {
+            display: none;
+        }
+
+        #corpoBoneco
+        {
+            height: 20rem;
+            width: 20rem;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <p1 id = "texto">Palavra</p1>
+    
+    <div id = "corpoPrincipal">
+        <div>
+            <input type="text" name="letra0" class="letra" readonly id="letra0" maxlength="0">
+            <input type="text" name="letra1" class="letra" readonly id="letra1" maxlength="0">
+            <input type="text" name="letra2" class="letra" readonly id="letra2" maxlength="0">
+            <input type="text" name="letra3" class="letra" readonly id="letra3" maxlength="0">
+            <input type="text" name="letra4" class="letra" readonly id="letra4" maxlength="0">
+            <input type="text" name="letra5" class="letra" readonly id="letra5" maxlength="0">
+            <input type="text" name="letra6" class="letra" readonly id="letra6" maxlength="0">
+            <input type="text" name="letra7" class="letra" readonly id="letra7" maxlength="0">
+            <input type="text" name="letra8" class="letra" readonly id="letra8" maxlength="0">
+            <input type="text" name="letra9" class="letra" readonly id="letra9" maxlength="0">
+            <input type="text" name="letra10" class="letra" readonly id="letra10" maxlength="0">
+            <input type="text" name="letra11" class="letra" readonly id="letra11" maxlength="0">
+            <input type="text" name="letra12" class="letra" readonly id="letra12" maxlength="0">
+            <input type="text" name="letra13" class="letra" readonly id="letra13" maxlength="0">
+            <input type="text" name="letra14" class="letra" readonly id="letra14" maxlength="0">
+            <input type="text" name="letra15" class="letra" readonly id="letra15" maxlength="0">
+            <input type="text" name="letra16" class="letra" readonly id="letra16" maxlength="0">
+            <input type="text" name="letra17" class="letra" readonly id="letra17" maxlength="0">
+            <input type="text" name="letra18" class="letra" readonly id="letra18" maxlength="0">
+            <input type="text" name="letra19" class="letra" readonly id="letra19" maxlength="0">
+        </div>
+       
+        <input type="text" name="letra" class = "letraJogador" id="letra" maxlength="1">
+        <button id="jogar" onclick="jogar()">JOGAR</button> 
+        <button id = "novapalavra" onclick="novapalavra()">NOVA PALAVRA</button>
+        <button id = "dica" onclick="dica()">DICA</button>
+        <div id = "letraErrada">LETRAS DIGITADAS: </div>
+        
+        <div id= corpoBoneco>
+            <div id="cabeca" class = "boneco">O</div>
+            <div id="bracoesquerdo" class = "boneco">--</div>
+            <div id="bracodireito" class = "boneco">--</div>
+            <div id="pernaesquerda" class = "boneco">/</div>
+            <div id="pernadireita" class = "boneco">\</div>
+            <div id="corpo" class = "boneco">|</div>
+        </div>
+    </div>
+    
+    <script>
+        //COLEÇÃO DE PALAVRAS TEM QUE SER MAIÚSCULA
+        var todaspalavras = ["CACHORRO","GATO","ARVORE","MOCHILA","PE","BRAÇO","GAIVOTA","HOLANDA","AFEGANISTAO","SUECIA","CORSA"]
+        var nome ;
+        var palavra = document.getElementById("texto").innerHTML
+        var letraTentativa=[]
+        var erros = 0;
+        var divs = document.getElementsByTagName("div")
+        var letraErrada = document.getElementById("letraErrada")
+        var cabeca = document.getElementById("cabeca")
+        var bracoesquerdo = document.getElementById("bracoesquerdo")
+        var bracodireito = document.getElementById("bracodireito")
+        var pernaesquerda = document.getElementById("pernaesquerda")
+        var pernadireita = document.getElementById("pernadireita")
+        var corpo = document.getElementById("corpo")    
+        var corpoTodo = document.getElementsByClassName("boneco")
+        var aleatorio 
+        var aleatoriocima
+
+        function aparecerBoneco()
+        {
+            switch(erros)
+            {
+                case 0:
+                   break
+                case 1:
+                    cabeca.style.display="block"
+                    break
+                case 2:
+                    cabeca.style.display="block"
+                    corpo.style.display="block"
+                    break
+                case 3:
+                    cabeca.style.display="block"
+                    corpo.style.display="block"
+                    bracoesquerdo.style.display="block"
+                    break
+                case 4:
+                    cabeca.style.display="block"
+                    corpo.style.display="block"
+                    bracoesquerdo.style.display="block"
+                    bracodireito.style.display="block"
+                    break
+                case 5:
+                    cabeca.style.display="block"
+                    corpo.style.display="block"
+                    bracoesquerdo.style.display="block"
+                    bracodireito.style.display="block"
+                    pernaesquerda.style.display="block"
+                   break
+                case 6:
+                    cabeca.style.display="block"
+                    corpo.style.display="block"
+                    bracoesquerdo.style.display="block"
+                    bracodireito.style.display="block"
+                    pernaesquerda.style.display="block"
+                    pernadireita.style.display="block"
+                   break
+                default:
+            }
+        }
+
+        function dica()
+        {
+           var dicaPalavra
+           for(i=0;i<todaspalavras.length;i++)
+           if(nome == todaspalavras[i])
+           {
+                dicaPalavra = i
+
+           }
+           switch(dicaPalavra)
+           {
+                case 0:
+                   alert("ANIMAL")
+                   break
+                case 1:
+                   alert("ANIMAL")
+                   break
+                case 2:
+                   alert("NATUREZA")
+                   break
+                case 3:
+                   alert("ACESSÓRIO")
+                   break
+                case 4:
+                   alert("PARTE DO CORPO HUMANO")
+                   break
+                case 5:
+                   alert("PARTE DO CORPO HUMANO")
+                   break
+                case 6:
+                   alert("ANIMAL")
+                   break
+                case 7:
+                   alert("PAÍS")
+                   break
+                case 8:
+                   alert("PAÍS")
+                   break
+                case 9:
+                   alert("PAÍS")
+                   break
+                case 10:
+                   alert("CARRO CHEVROLET")
+                   break
+                default:   
+            }
+        }
+
+        function novapalavra() 
+        {
+            aleatorio = Math.random()*10
+            aleatoriocima=Math.round(aleatorio)
+            console.log(aleatorio)
+            console.log(aleatoriocima)
+            console.log(nome)
+            erros=0
+            letraErrada.innerHTML = "LETRAS DIGITADAS:"
+            letra.value=""
+
+            nome = todaspalavras[aleatoriocima]
+            var palavra = document.getElementById("texto").innerHTML = nome
+            var obj;
+            for(var i =0; i<20;i++)
+            {
+                obj = document.getElementById("letra"+i).value="";
+                obj = document.getElementById("letra"+i).style.display="none"
+            }
+
+            for (var i =0;i<nome.length;i++)
+            {
+                obj = document.getElementById("letra"+i).style.display= "inline-block";
+            }
+
+            cabeca.style.display="none"
+            corpo.style.display="none"
+            bracoesquerdo.style.display="none"
+            bracodireito.style.display="none"
+            pernaesquerda.style.display="none"
+            pernadireita.style.display="none"
+            letraTentativa=[] 
+        }
+        
+        function jogar()
+        {
+            var letra = document.getElementById("letra").value.toUpperCase()
+            if(letra == "")
+            {
+                alert("DIGITE UMA LETRA AO LADO")
+            }
+            else
+            {
+                for(c=0;c<nome.length;c++)
+                {
+                    if(letraTentativa[c]==letra)
+                    {
+                        alert("VOCÊ JÁ TENTOU ESSA LETRA, ESCOLHA OUTRA")
+                    }
+                    }
+                    
+                    {
+                    console.log(letraTentativa)
+                    var i = 0
+                    encontrado = false;
+                    while(i<nome.length)
+                    {
+                        if (letra == nome[i])
+                        {
+                        var l = document.getElementById("letra"+i).value=letra
+                        encontrado = true;
+                        }
+                        i++
+                    }
+                    if(encontrado == false)
+                    {
+                        if(!(letraTentativa.includes(letra)))
+                        {
+                            erros++
+                            letraErrada.innerHTML+=letra + "-"
+                            aparecerBoneco()
+                        }
+                        
+                    }
+                    if(erros > 5)
+                    {
+                        alert("VOCÊ PERDEU, CLIQUE EM OK PARA VER QUAL ERA A PALAVRA E UM NOVO JOGO SERÁ INICIADO EM INSTANTES")
+                        letraErrada.innerHTML= "A PALAVRA ERA: "+ nome
+                        setTimeout(novapalavra,3000)
+                    }
+                    else
+                    {
+                        var obj;
+                        var contVitoria=0
+                        for(var i =0; i<nome.length;i++)
+                        {
+                            
+                            obj = document.getElementById("letra"+i)
+                            
+                            if(obj.value!="")
+                            {
+                                contVitoria+=1
+                                if(contVitoria==nome.length)
+                                {
+                                    alert("PARABÉNS VOCÊ GANHOU, CLIQUE EM OK PARA VER QUAL ERA A PALAVRA E UM NOVO JOGO SERÁ INICIADO EM INSTANTES")
+                                    setTimeout(novapalavra,2000)
+                                }
+                            }
+                        }
+                    }
+                        
+                    if(!(letraTentativa.includes(letra)))
+                    {
+                        letraTentativa.push(letra)
+                    }
+                }
+            }
+        }   
+        window.addEventListener("load",novapalavra)
+    </script>
+</body>
+</html>
