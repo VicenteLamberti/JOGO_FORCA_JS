@@ -1,2 +1,2 @@
 # JOGO_FORCA
- Jogo da forca
+ Jogo da forca em javascript e html
